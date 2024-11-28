@@ -1,0 +1,73 @@
+.login, .register {
+    align-items: center;
+    background-color: var(--c1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100vh;
+    justify-content: center;
+    width: 100%;
+}
+
+.back {
+    position: absolute;
+    transform: translate(-300px, -300px);
+    transition: all 150ms ease-in;
+}
+
+.signin_section, .register_section {
+    margin-top: 50px;
+}
+
+.signin_section form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.register_section form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.signin_section label, .register_section label {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.signin_section input, .register_section input {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 3px 3px 9px rgba(0, 0, 0, 0.35);
+    font-size: 18px;
+    height: 30px;
+    outline: none;
+    padding: 10px;
+    width: 330px;
+}
+
+form button {
+    width: fit-content;
+    height: fit-content;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.links_section {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.newhere {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 45px;
+}

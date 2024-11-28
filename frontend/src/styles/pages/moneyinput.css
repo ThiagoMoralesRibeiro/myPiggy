@@ -1,0 +1,108 @@
+.MoneyInput {
+    background-color: #181818;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+}
+
+.MoneyInput a {
+    position: absolute;
+    transform: translate(30px, 30px);
+}
+
+ .MoneyInput form {
+    align-self: center;
+    height: 100%;
+    width: 40%;
+}
+
+.value {
+    margin-top: 20px;
+}
+
+.value label {
+    display: flex;
+    gap: 10px;
+}
+
+.value label, .value input {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.value input {
+    background-color: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    height: fit-content;
+}
+
+.info { 
+    background-color: #5D5D5D;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-top: 30px;
+    padding: 15px;
+    width: 100%;
+}
+
+.info label {
+    align-items: center;
+    border-bottom: solid 1px white;
+    display: flex;
+    gap: 20px;
+    height: 140px;
+    width: 100%;
+}
+
+.info label img {
+    margin-left: 20px;
+    width: 64px;
+}
+
+.info input, .info select {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 26px;
+    font-weight: 700;
+    height: 50px;
+    padding: 5px;
+    outline: none;
+}
+
+.info select option {
+    background-color: black;
+}
+
+.info ::placeholder {
+    color: white;
+}
+
+.info button {
+    align-items: center;
+    background-color: white;
+    border: none;
+    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.5);
+    border-radius: 100%;
+    display: flex;
+    height: fit-content;
+    justify-content: center;
+    margin: 100px auto;
+    transition: all 150ms ease-in;
+    width: fit-content;
+}
+
+.info button:hover {
+    cursor: pointer;
+    box-shadow: 0px 9px 9px rgba(0, 0, 0, 0.5);
+}
+.info button img {
+    width: 80px;
+}

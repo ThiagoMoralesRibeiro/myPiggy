@@ -1,0 +1,43 @@
+.google {
+    align-items: center;
+    background-color: white;
+    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    color: black;
+    display: flex;
+    text-decoration: none;
+    transition: all ease-in-out 150ms;
+}
+
+.google img {
+    width: 30px;
+    height: 30px;
+    margin: 0px 30px 0px 10px;
+}
+
+.google span {
+    font-size: 20px;
+}
+
+.signin {
+    align-items: center;
+    background-color: #272726;
+    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    color: var(--c1);
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    transition: all ease-in-out 150ms;
+}
+
+.signin span {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 8px;
+}
+
+.google:hover, .signin:hover {
+    cursor: pointer;
+    box-shadow: 0px 9px 9px rgba(0, 0, 0, 0.4);
+}

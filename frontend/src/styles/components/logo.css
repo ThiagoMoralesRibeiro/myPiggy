@@ -1,0 +1,15 @@
+.logo {
+    align-items: center;
+    background-color: var(--c1);
+    border: solid 15px white;
+    border-radius: 100%;
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.5);
+    display: flex;    
+    height: 240px;
+    justify-content: center;
+    width: 240px;
+}
+
+.logo img {
+    width: 80%;
+}

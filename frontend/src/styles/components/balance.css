@@ -1,0 +1,49 @@
+.balance {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.balance .value {
+    align-items: center;
+    display: flex;
+    gap: 30px;
+}
+
+.balance .value.hidden h1 {
+    display: none;
+    visibility: hidden;
+    transition: all 150ms ease;
+}
+
+
+.value span {
+    font-size: 60px;
+    font-weight: 800;
+}
+
+span.hidden {
+    display: none;
+    visibility: hidden;
+}
+
+.value button {
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    width: 40px;
+}
+
+.value button:hover {
+    cursor: pointer;
+}
+
+.value button img {
+    height: 100%;
+    width: 100%;
+}
