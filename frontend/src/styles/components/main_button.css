@@ -1,0 +1,89 @@
+.main_button {
+    align-items: center;
+    background-color: var(--c1);
+    border: none;
+    border-radius: 100%;
+    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.6);
+    bottom: 40px;
+    display: flex;
+    left: 50%;
+    position: fixed;
+    transition: all 150ms ease-in;
+    transform: translate(-50%, 0%);
+    height: 120px;
+    justify-content: center;
+    width: 120px;
+    z-index: 999;
+}
+
+.main_button.open img {
+    transform: rotate(45deg);
+}
+
+.main_button:hover {
+    cursor: pointer;
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.6);
+}
+
+.main_button img {
+    height: 90%;
+    transition: all 150ms ease-in;
+    width: 90%;
+}
+
+
+.main_button_container .action_buttons {
+    display: flex;
+    bottom: 40px;
+    left: 50%;
+    position: fixed;
+    height: fit-content;
+    position: fixed;
+    transform: translate(-50%, 0%);
+    transition: all 150ms ease-in;
+    visibility: hidden;
+}
+
+
+.main_button_container .action_buttons.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.main_button_container .action_buttons.hidden {
+    visibility: hidden;
+    opacity: 0;
+} 
+
+.action_buttons .link {
+    align-items: center;
+    background-color: white;
+    border-radius: 100%;
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.8);
+    display: flex;
+    position: absolute;
+    height: 120px;
+    justify-content: center;
+    width: 120px;
+}
+
+.action_buttons .link img {
+    height: 60%;
+    width: 60%;
+}
+
+.action_buttons .link:first-child {
+    transform: translate(-220px, -220px);
+}
+
+.action_buttons .link:nth-child(2) {
+    transform: translate(100px, -220px);
+}
+
+.action_buttons .link:nth-child(2) img{
+    transform: rotate(90deg);
+}
+
+.action_buttons .link:last-child {
+    transform: translate(-60px, -300px);
+}

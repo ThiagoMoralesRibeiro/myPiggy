@@ -1,0 +1,13 @@
+h1 {
+    font-weight: bold;
+}
+
+h4 {
+    font-weight: 500;
+}
+
+h1, h4, .link {
+    text-align: center;
+    width: fit-content;
+    font-family: 'Poppins', sans-serif;
+}

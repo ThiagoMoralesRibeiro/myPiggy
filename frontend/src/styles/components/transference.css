@@ -1,0 +1,36 @@
+.entradas {
+    background-color: #80C29A;
+}
+
+.saidas {
+    background-color: #FF8480;
+}
+
+.transference {
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 3px 0px 9px rgba(0, 0, 0, 0.4);
+    display: flex;
+    height: 100px;
+    width: 280px;
+}
+
+
+.transference img {
+    margin: 0 20px;
+    height: 60px;
+    width: 60px;
+}
+
+.saidas img {
+    transform: rotate(180deg);
+}
+
+.transference h4{
+    letter-spacing: 5px;
+}
+
+.transference span {
+    font-size: 22px;
+    text-shadow: 0px 1px 6px black;
+}

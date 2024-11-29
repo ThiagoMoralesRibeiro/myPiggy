@@ -1,0 +1,21 @@
+.account {
+    display: flex;
+    align-items: center;
+}
+
+.account img {
+    margin: 0 10px;
+    height: 60px;
+    width: 60px;
+}
+
+.account_info {
+    display: flex;
+    flex-direction: column;
+}
+
+.account_info h4 {
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+}

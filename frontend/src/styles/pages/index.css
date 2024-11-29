@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+:root {
+    --c1: #008534;
+    --c2: #ECF39E;
+    --c3: #261447;
+    --c4: #F9B9C3;
+    --c5: #091E05;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    overflow-X: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.App {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+
+    height: 100%;
+    width: 100%;
+}

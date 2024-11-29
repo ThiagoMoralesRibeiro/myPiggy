@@ -1,0 +1,54 @@
+.LoginOption {
+    align-items: center;
+    background-color: var(--c1);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.text_section {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.signin_section {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.or {
+    color: white;
+    letter-spacing: 5px;
+    position: relative;
+    text-align: center;
+}
+
+.or::after {
+    background-color: white;
+    content: '';
+    position: absolute;
+    height: 1px;
+    transform: translate(10px, 12px);
+    width: 150px;
+}
+
+.or::before {
+    background-color: white;
+    content: '';
+    position: absolute;
+    height: 1px;
+    transform: translate(-155px, 12px);
+    width: 140px;
+}
+
+.register_section {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
