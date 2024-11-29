@@ -18,7 +18,7 @@ function Balance({balance}){
     };
    
     return (
-        <div class="balance">
+        <div className="balance">
             <Title
                 color="gray"
                 fontsize="40px"

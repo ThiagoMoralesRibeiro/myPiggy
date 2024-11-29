@@ -3,15 +3,15 @@ function Input({label, type, name, value, max, min, maxlength, placeholder, requ
         <label>
             {label}
             <input 
-            type={type} 
-            name={name} 
-            value={value}
-            max={max} 
-            min={min}
-            maxlength={maxlength}
-            placeholder={placeholder}
-            required={required ? true : false} 
-            onChange={onChange}
+                type={type} 
+                name={name} 
+                value={value}
+                max={max} 
+                min={min}
+                maxLength={maxlength}
+                placeholder={placeholder}
+                required={required ? true : false} 
+                onChange={onChange}
             />
         </label>
     );

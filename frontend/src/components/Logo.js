@@ -3,7 +3,7 @@ import "../styles/components/logo.css";
 
 function Logo({width, height, border}){
     return (
-        <div class="logo"
+        <div className="logo"
         style = {{
             width: width || "180px",
             height: height || "180px",

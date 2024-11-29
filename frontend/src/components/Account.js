@@ -11,7 +11,7 @@ function Account({type, name, balance}){
     const imgSrc = (type === "wallet" ? wallet : bank);
     
     return (
-        <div class="account">
+        <div className="account">
             <img src={imgSrc} alt={type === "wallet" ? "Carteira" : "Banco"} />
             
             <div class="account_info">

@@ -2,7 +2,7 @@ import "../styles/components/text.css";
 
 function Link({classe, href, target, color, fontsize, decoration, children}){
     return (
-        <a class={`link ${classe}`}
+        <a className={`link ${classe}`}
         href={href}
         target={target}
         style = {{

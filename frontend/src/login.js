@@ -10,28 +10,36 @@ import "./styles/pages/login_register.css";
 import "./styles/pages/index.css";
 
 function Login(){
-    const [email, setEmail] = useState("");
-    const [errors, setError] = useState({ email: ""});
+        const [formData, setFormData] = useState({
+            signin_email: "",
+            signin_password: "",
+        });
 
-    // Função de validação
-    const validateInputs = () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const [errors, setErrors] = useState({});
 
-        const emailError = emailRegex.test(email) ? "" : "E-mail inválido!";
+        const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        const validatePassword = (password) => password.length >= 8;
 
-        setError({email: emailError});
+        const handleChange = (e) => {
+            const { name, value } = e.target;
+            setFormData({ ...formData, [name]: value });
+        };
 
-        return emailError;
-    };
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            const newErrors = {};
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (validateInputs()) {
-            alert("E-mail e/ou senha válidos!");
-        } else {
-            //
-        }
-    };
+            if (!validateEmail(formData.signin_email)) {newErrors.email = "E-mail inválido."};
+            if (!validatePassword(formData.signin_password)){newErrors.password = "Senha deve ter pelo menos 8 caracteres.";}
+
+            setErrors(newErrors);
+
+            if (Object.keys(newErrors).length !== 0) {
+                alert("Corrija os campos!");
+            } else {
+                alert("Login realizado com sucesso!");
+            }
+        };
    
     return (
         <div className="login">
@@ -53,14 +61,13 @@ function Login(){
                     <Input
                         label="Seu e-mail"
                         type="email"
-                        value={email}
                         name="signin_email"
                         maxlength="60"
                         required="true"
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleChange}
                     >
                     </Input>
-                    {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+                    {errors.email && <span className="error">{errors.email}</span>}
 
                     <Input
                         label="Sua senha"
@@ -68,8 +75,11 @@ function Login(){
                         name="signin_password"
                         maxlength="60"
                         required="true"
+                        onChange={handleChange}
                     >
                     </Input>
+                    {errors.password && <span className="error">{errors.password}</span>}
+
                     <button>
                         <SignIn
                         href="#"

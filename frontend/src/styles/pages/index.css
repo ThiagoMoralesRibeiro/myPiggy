@@ -33,8 +33,6 @@ body {
     -o-user-select: none;
     user-select: none;
 
-    padding-bottom: 200px;
-
     height: 100%;
     width: 100%;
 }
