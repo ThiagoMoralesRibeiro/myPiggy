@@ -46,21 +46,22 @@ DROP TABLE IF EXISTS users CASCADE;
 
 
 CREATE TABLE account (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),    			-- Identificador único da conta
-    user_id INT NOT NULL,													-- Referência ao usuário
-    balance_in_cents INT NOT NULL DEFAULT 0,                   	-- Saldo da conta em centavos
-    account_type VARCHAR(50) NOT NULL, 							-- Tipo de conta geral (BankAccount, PiggyBank, etc)
-	account_number VARCHAR(20) NOT NULL,						-- Numero da conta
-	branch_number VARCHAR(10) NOT NULL, 						-- Numero da agencia                                    	                                  	
-    CONSTRAINT fk_user FOREIGN KEY (user_id)                  	-- Relacionamento com o usuário
-        REFERENCES Users(id)
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),             -- Identificador único da conta
+    user_id INT NOT NULL,                                       -- Referência ao usuário
+    balance_in_cents INT NOT NULL DEFAULT 0,                    -- Saldo da conta em centavos
+    account_type VARCHAR(50) NOT NULL,                          -- Tipo de conta geral (BankAccount, PiggyBank, etc)
+    account_number VARCHAR(20) NOT NULL,                        -- Número da conta
+    branch_number VARCHAR(10) NOT NULL,                         -- Número da agência
+    CONSTRAINT fk_user FOREIGN KEY (user_id)                   -- Relacionamento com o usuário
+        REFERENCES users(id)                                   -- Chave estrangeira que faz referência à tabela 'users'
+        ON DELETE CASCADE                                      -- Quando um usuário for excluído, as contas associadas também serão excluídas
 );
 
 
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY, 										--Identificadoor unico das Categorias
-    category_name VARCHAR(50) NOT NULL, 						-- Nome da categoria, ex.: 'Alimentação', 'Transporte', 'Outros'
-    category_description TEXT            						-- Descrição opcional da categoria
+    name VARCHAR(50) NOT NULL, 						-- Nome da categoria, ex.: 'Alimentação', 'Transporte', 'Outros'
+    description TEXT            						-- Descrição opcional da categoria
 );
 
 
@@ -80,26 +81,21 @@ CREATE TABLE piggy_bank (
 
 CREATE TYPE transaction_type AS ENUM ('debit', 'credit', 'investments', 'internal');
 
+
 CREATE TABLE transactions (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(), 			-- UUID da transacao
-    account_id UUID NOT NULL,              						-- UUID da conta
-    transaction_type TRANSACTION_TYPE	 NOT NULL,  			-- Tipo da transacao executada
-    amount_in_cents INTEGER NOT NULL,       					-- Valor atrelado a transacao
-    description TEXT,                     						-- Descrição opcional da transacao
-    transaction_date TIMESTAMP NOT NULL DEFAULT NOW(),  		-- Data e hora da transacao
-    category_id INT,                      						-- Referência à categoria da transação
-    tags TEXT[],                          						-- Lista de tags opcionais para melhor organização
-    is_recurring BOOLEAN DEFAULT FALSE,  						-- Se a transação é recorrente (ex.: mensal, anual)
-    recurrence_period VARCHAR(50),        						-- Ex.: 'mensal', 'anual', 'semanal', etc.
-	-- beneficiary TEXT,                                        	-- Nome do beneficiário ou pagador (opcional)
-    -- external_account_info TEXT,                              	-- Informação sobre conta externa (opcional)
-    CONSTRAINT fk_account
-        FOREIGN KEY (account_id) 
-        REFERENCES Accounts(id),
-    CONSTRAINT fk_category
-        FOREIGN KEY (category_id)
-        REFERENCES Categories(id)  
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    account_id UUID NOT NULL,
+    category_id INT NOT NULL,
+    transaction_type VARCHAR(50) NOT NULL,
+    amount_in_cents INT NOT NULL,
+    description TEXT,
+    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_recurring BOOLEAN DEFAULT FALSE,
+    recurrence_period VARCHAR(20),
+    FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE SET NULL
 );
+
 
 INSERT INTO users (
     name, email, password, birth_date, phone_number, cpf, address
