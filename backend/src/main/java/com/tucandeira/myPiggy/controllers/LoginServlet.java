@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
         if (resultCrypt.verified) {
           HttpSession session = request.getSession();
           session.setAttribute("email", email);
+          session.setMaxInactiveInterval(30*60);
 
           response.setStatus(HttpServletResponse.SC_OK); //201
           response.getWriter().write("{\"message\": \"Login successful\"}");

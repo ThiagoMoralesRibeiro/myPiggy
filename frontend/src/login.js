@@ -51,8 +51,7 @@ function Login() {
       if (response.ok) {
         window.location.href = 'http://localhost:3000/home';
       } else {
-        const errorData = await response.json();
-        alert("Erro: " + errorData.message);
+        alert("Erro: Credenciais invalidas");
       }
     } catch (error) {
       console.error("Erro ao fazer login", error);

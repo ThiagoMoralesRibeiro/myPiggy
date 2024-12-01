@@ -1,16 +1,4 @@
-services:
-  apache:
-    image: httpd:latest
-    container_name: mypiggy_apache
-    volumes:
-      - ./apache/mypiggy.conf:/usr/local/apache2/conf/httpd.conf
-      - ./frontend/public:/home/tmribeiro/eclipse-workspace/mypiggy/frontend/public
-    ports:
-      - "8000:80"
-    depends_on:
-      - backend
-      - frontend
-
+services: 
   backend:
     build:
       context: ./backend
@@ -38,7 +26,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - REACT_APP_API_URL=http://localhost:8080/api/
+      - REACT_APP_API_URL=http://localhost:8080/
     volumes:
       - ./frontend:/app  # Mapeando o código do frontend para o contêiner
       - /app/node_modules # Persistir as dependências do node_modules

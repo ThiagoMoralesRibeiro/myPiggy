@@ -10,17 +10,17 @@ public class User {
   private LocalDate birthDate;
   private String phoneNumber;
   private String cpf;
-  private String address;
+  private String cep;
 
   public User(String name, String email, String password, LocalDate birthDate, String phoneNumber,
-  String cpf, String address) {
+  String cpf, String cep) {
     this.setName(name);
     this.setEmail(email);
     this.setPassword(password);
     this.setBirthDate(birthDate);
     this.setPhoneNumber(phoneNumber);
     this.setCpf(cpf);
-    this.setAddress(address);
+    this.setCep(cep);
   }
 
   public User(int id, String name, String email) {
@@ -31,7 +31,7 @@ public class User {
         this.birthDate = null;
         this.phoneNumber = null;
         this.cpf = null;
-        this.address = null;
+        this.cep = null;
     }
 
   public void setId(int id){
@@ -62,8 +62,8 @@ public class User {
     this.cpf = cpf;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setCep(String cep) {
+    this.cep = cep;
   }
 
   public String getName() {
@@ -94,8 +94,8 @@ public class User {
     return cpf;
   }
 
-  public String getAddress() {
-    return address;
+  public String getCep() {
+    return cep;
   }
 
 }

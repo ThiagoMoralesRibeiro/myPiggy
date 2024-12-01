@@ -37,7 +37,7 @@ CREATE TABLE users (
 	birth_date DATE NOT NULL, 					-- Data de nascimento
 	phone_number VARCHAR(20) NOT NULL, 			-- Numero de telefone
 	cpf VARCHAR(11) NOT NULL, 					-- CPF do cliente
-	address VARCHAR(100) NOT NULL, 				-- Endereco do usuario
+	cep VARCHAR(8) NOT NULL, 				-- CEP do usuario
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );

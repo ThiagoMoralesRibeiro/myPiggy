@@ -24,7 +24,7 @@ public class UserDaoImpl implements UserDao {
 
   @Override
   public void save(User user) {
-    String sql = "INSERT INTO users (name, email, password, birth_date, phone_number, cpf, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO users (name, email, password, birth_date, phone_number, cpf, cep) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     try {
       Connection conn = dbConnection.getConnection();
@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
       stmt.setDate(4, java.sql.Date.valueOf(user.getBirthDate()));
       stmt.setString(5, user.getPhoneNumber());
       stmt.setString(6, user.getCpf());
-      stmt.setString(7, user.getAddress());
+      stmt.setString(7, user.getCep());
 
       stmt.execute();
 
@@ -72,7 +72,7 @@ public class UserDaoImpl implements UserDao {
             birthDate,
             result.getString("phone_number"),
             result.getString("cpf"),
-            result.getString("address"));
+            result.getString("cep"));
 
         user.setId(result.getInt("id"));
 
@@ -110,7 +110,7 @@ public class UserDaoImpl implements UserDao {
             birthDate,
             result.getString("phone_number"),
             result.getString("cpf"),
-            result.getString("address"));
+            result.getString("cep"));
 
         user.setId(result.getInt("id"));
 
@@ -125,7 +125,7 @@ public class UserDaoImpl implements UserDao {
 
   @Override
   public void update(User user) {
-    String sql = "UPDATE users SET name = ?, email = ?, birth_date = ?, phone_number = ?, cpf = ?, address= ?, password=? WHERE id = ?";
+    String sql = "UPDATE users SET name = ?, email = ?, birth_date = ?, phone_number = ?, cpf = ?, cep= ?, password=? WHERE id = ?";
 
     try {
 
@@ -137,7 +137,7 @@ public class UserDaoImpl implements UserDao {
       stmt.setObject(3, user.getBirthDate());
       stmt.setObject(4, user.getPhoneNumber());
       stmt.setObject(5, user.getCpf());
-      stmt.setObject(6, user.getAddress());
+      stmt.setObject(6, user.getCep());
 
       if (user.getPassword() != null && !user.getPassword().isEmpty()) {
         String pepper = "StandByMeGuys";
