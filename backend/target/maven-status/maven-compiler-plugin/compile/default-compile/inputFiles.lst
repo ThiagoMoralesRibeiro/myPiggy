@@ -1,0 +1,15 @@
+/app/src/main/java/com/tucandeira/myPiggy/App.java
+/app/src/main/java/com/tucandeira/myPiggy/controllers/AccountServlet.java
+/app/src/main/java/com/tucandeira/myPiggy/controllers/TestConnectionServlet.java
+/app/src/main/java/com/tucandeira/myPiggy/dao/AccountDao.java
+/app/src/main/java/com/tucandeira/myPiggy/dao/CategoryDao.java
+/app/src/main/java/com/tucandeira/myPiggy/dao/PiggyBankDao.java
+/app/src/main/java/com/tucandeira/myPiggy/dao/TransactionDao.java
+/app/src/main/java/com/tucandeira/myPiggy/dao/UserDao.java
+/app/src/main/java/com/tucandeira/myPiggy/dao/impl/AccountDaoImpl.java
+/app/src/main/java/com/tucandeira/myPiggy/model/Account.java
+/app/src/main/java/com/tucandeira/myPiggy/model/Category.java
+/app/src/main/java/com/tucandeira/myPiggy/model/Piggybank.java
+/app/src/main/java/com/tucandeira/myPiggy/model/Transaction.java
+/app/src/main/java/com/tucandeira/myPiggy/model/User.java
+/app/src/main/java/com/tucandeira/myPiggy/utils/DbConnection.java
