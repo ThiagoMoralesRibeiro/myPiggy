@@ -120,6 +120,43 @@ public class AccountDaoImpl implements AccountDao {
     return accounts;
   }
 
+  public Account findByUserId(int userId) {
+    String sql = """
+            SELECT a.id AS account_id, a.*, u.id AS user_id, u.name AS user_name, u.email AS user_email
+            FROM account a
+            JOIN users u ON a.user_id = u.id
+            WHERE a.user_id = ?
+        """;
+    try {
+      Connection conn = dbConnection.getConnection();
+      PreparedStatement stmt = conn.prepareStatement(sql);
+
+      stmt.setInt(1, userId);
+
+      ResultSet result = stmt.executeQuery();
+
+      if (result.next()) {
+        User user = new User(
+            result.getInt("user_id"),
+            result.getString("user_name"),
+            result.getString("user_email"));
+
+        return new Account(
+            UUID.fromString(result.getString("account_id")),
+            user,
+            result.getInt("balance_in_cents"),
+            result.getString("account_type"),
+            result.getString("account_number"),
+            result.getString("branch_number"));
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return null;
+  }
+
   @Override
   public void update(Account account) {
     String sql = "UPDATE account SET balance_in_cents = ?, account_type = ? WHERE id = ?";

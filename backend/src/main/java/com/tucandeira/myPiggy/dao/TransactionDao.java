@@ -10,4 +10,6 @@ public interface TransactionDao{
 	List<Transaction> findAll();
 	void update(Transaction transaction);
 	void delete(UUID transactionId);
+  double getTotalCredit(UUID accountId);
+  double getTotalDebit(UUID accountId);
 }

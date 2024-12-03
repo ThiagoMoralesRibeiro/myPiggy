@@ -47,6 +47,7 @@ function Login() {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: new URLSearchParams(formData).toString(),
+        credentials: "include",
       });
       if (response.ok) {
         window.location.href = 'http://localhost:3000/home';
@@ -75,7 +76,7 @@ function Login() {
       <Logo></Logo>
 
       <section class="signin_section">
-        <form method="get" action="#" onSubmit={handleSubmit}>
+        <form method="post" onSubmit={handleSubmit}>
           <Input
             label="Seu e-mail"
             type="email"

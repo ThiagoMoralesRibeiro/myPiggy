@@ -6,6 +6,7 @@ import java.util.List;
 public interface AccountDao{
 	void save(Account account);
 	Account findByAccountNumber(String accountNumber);
+  Account findByUserId(int userId);
 	List<Account> findAll();
 	void update(Account account);
 	void delete(String accountNumber);

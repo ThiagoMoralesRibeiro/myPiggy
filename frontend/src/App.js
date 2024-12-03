@@ -1,6 +1,7 @@
 import React from "react";
 // import "react-router-dom";
 import { Route, Routes, BrowserRouter } from "react-router";
+import RequireAuth from "./components/RequireAuth";
 import LoginOption from "./loginOption";
 import Login from "./login";
 import Register from "./register";
@@ -19,10 +20,10 @@ function App() {
           <Route path="/" element={<LoginOption/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
-          <Route path="/home" element={<Home/>}/>
-          <Route path="/entrada" element={<Entrada/>}/>
-          <Route path="/saida" element={<Saida/>}/>
-          <Route path="/transferencia" element={<Transferencia/>}/>
+          <Route path="/home" element={<RequireAuth><Home/></RequireAuth>}/>
+          <Route path="/entrada" element={<RequireAuth><Entrada/></RequireAuth>}/>
+          <Route path="/saida" element={<RequireAuth><Saida/></RequireAuth>}/>
+          <Route path="/transferencia" element={<RequireAuth><Transferencia/></RequireAuth>}/>
 
         </Routes>
       </BrowserRouter>

@@ -115,7 +115,7 @@ public class UserServlet extends HttpServlet {
 
       try {
         userDao.delete(userId);
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().write("{\"message\": \"Account deleted successfully.\"}");
 
       } catch (IOException e) {
@@ -139,7 +139,7 @@ public class UserServlet extends HttpServlet {
     out.print(userJson);
     out.flush();
   }
-
+  
   private void getUserById(HttpServletResponse response, int userId) throws IOException {
     User user = userDao.findById(userId);
     String userJson = gson.toJson(user);

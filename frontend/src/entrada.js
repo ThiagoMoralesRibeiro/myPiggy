@@ -64,9 +64,72 @@ function Entrada() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const fetchSessionData = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/session-info");
+      if (response.ok) {
+        const sessionData = await response.json();
+        console.log("Session Data:", sessionData);
+        return sessionData;
+      } else {
+        console.error("Erro ao obter os dados da sessao");
+        return null;
+      }
+    } catch (error) {
+      console.error("Erro na requisicao dos dados da sessao");
+      return null;
+    }
+  };
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Dados enviados:", formData);
+
+    const sessionData = await fetchSessionData();
+
+    if (sessionData) {
+      const transactionData = {
+        id: sessionData.accountId,
+        account: {
+          balanceInCents: sessionData.balanceInCents, 
+          accountType: sessionData.accountType, 
+          accountNumber: sessionData.accountNumber,
+          branchNumber: sessionData.branchNumber,
+        },
+        transactionType: "credit",
+        amountInCents: parseFloat(formData.input_money.replace(",", ".")) * 100,
+        description: formData.input_desc,
+        transactionDate: {
+          year: new Date(formData.input_date).getFullYear(),
+          month: new Date(formData.input_date).getMonth() + 1,
+          day: new Date(formData.input_date).getDate(),
+        },
+        category: {
+          id: formData.input_category,
+          name: "",
+          description: "",
+        },
+        isRecurring: false,
+      };
+
+      try{
+        const response = await fetch("http://localhost:8080/transaction", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(transactionData),
+        });
+        if(response.ok){
+          console.log("Transação criada com sucesso!");
+        }else{
+          console.log("Erro ao criar transacao");
+        }
+      } catch(error) {
+        console.error("Erro na requisicao", error);
+      }
+    }
 
   };
 

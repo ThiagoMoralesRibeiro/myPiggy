@@ -27,11 +27,6 @@ public class CORSFilterServlet implements Filter{
     res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
     res.setHeader("Access-Control-Allow-Credentials", "true");
-
-    if("OPTIONS".equalsIgnoreCase(req.getMethod())){
-      res.setStatus(HttpServletResponse.SC_OK);
-      return;
-    }
     filter.doFilter(req, res);
   }
 
