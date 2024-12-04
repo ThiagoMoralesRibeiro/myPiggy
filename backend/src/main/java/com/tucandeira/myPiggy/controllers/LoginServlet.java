@@ -64,7 +64,8 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("accountId", accountInfo.getId());
             session.setAttribute("accountNumber", accountInfo.getAccountNumber());
             session.setAttribute("branchNumber", accountInfo.getBranchNumber());
-            session.setAttribute("email", email);
+            session.setAttribute("balanceInCents", accountInfo.getBalanceInCents());
+            session.setAttribute("email", email); 
             Cookie jsessionCookie = new Cookie("JSESSIONID", session.getId());
 
             jsessionCookie.setMaxAge(-1);

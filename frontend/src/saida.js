@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 import Subtitle from "./components/Subtitle.js";
 import Link from "./components/Link.js";
@@ -61,15 +61,79 @@ function Saida() {
     input_date: "",
   });
 
+  const [sessionData, setSessionData] = useState(null);
+
+  useEffect(() => {
+    const fetchSessionData = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/session-info", {
+          method: "GET",
+          credentials: "include",
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setSessionData(data);
+        } else {
+          console.error("Erro ao obter as informações da sessão.");
+        }
+      } catch (error) {
+        console.error("Erro ao verificar a sessão", error);
+      }
+    };
+
+    fetchSessionData();
+  }, []);
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Dados enviados:", formData);
 
+    if (!sessionData || !sessionData.accountId) {
+      console.error("Sessão inválida ou conta não encontrada.");
+      return;
+    }
+
+    const transactionData = {
+      account: {
+        id: sessionData.accountId,
+      },
+      transactionType: "debit",
+      amountInCents: parseFloat(formData.input_money.replace(",", ".")) * 100,
+      description: formData.input_desc,
+      transactionDate: {
+        year: new Date(formData.input_date).getFullYear(),
+        month: new Date(formData.input_date).getMonth() + 1,
+        day: new Date(formData.input_date).getDate() + 1,
+      },
+      category: {
+        id: formData.input_category,
+      },
+      isRecurring: false,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8080/transaction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(transactionData),
+      });
+      
+      if (response.ok) {
+        console.log("Transação criada com sucesso!");
+      } else {
+        console.error("Erro ao criar transação.");
+      }
+    } catch (error) {
+      console.error("Erro na requisição", error);
+    }
   };
 
 
@@ -84,7 +148,7 @@ function Saida() {
         ← Nova saída
       </Link>
 
-      <form method="post" action={handleSubmit}>
+      <form method="post" onSubmit={handleSubmit}>
         <div class="value">
           <Subtitle
             color="white"
@@ -97,10 +161,10 @@ function Saida() {
             label="R$"
             type="text"
             name="input_money"
-            max=""
-            min=""
             placeholder="0,00"
-            required="true"
+            value={formData.input_money}
+            onChange={handleChange}
+            required
           >
           </Input>
         </div>
@@ -117,15 +181,24 @@ function Saida() {
             label={<img src={description} alt='Description' />}
             type="text"
             name="input_desc"
-            maxlength=""
             placeholder="Descrição"
+            value={formData.input_desc}
+            onChange={handleChange}
           >
           </Input>
 
           <label>
             <img src={wallet} alt="Account" />
-            <select id="account" name="input_account" required>
-              <option value="" disabled selected>Conta</option>
+            <select
+              id="account"
+              name="input_account"
+              value={formData.input_account}
+              onChange={handleChange}
+              required
+            >
+              <option value="" disabled>
+                Conta
+              </option>
               <option value="wallet">Carteira</option>
               <option value="salary">Conta salário</option>
             </select>
@@ -136,6 +209,8 @@ function Saida() {
             type="date"
             name="input_date"
             placeholder="Data"
+            value={formData.input_date}
+            onChange={handleChange}
             required="true"
           >
           </Input>

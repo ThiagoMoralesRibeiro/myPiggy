@@ -26,6 +26,7 @@ public class SessionInfoServlet extends HttpServlet {
             UUID accountId = (UUID) session.getAttribute("accountId");
             String accountNumber = (String) session.getAttribute("accountNumber");
             String branchNumber = (String) session.getAttribute("branchNumber");
+            int balanceInCents = (int) session.getAttribute("balanceInCents");
              
             response.setContentType("application/json");
             response.getWriter().write(
@@ -33,6 +34,7 @@ public class SessionInfoServlet extends HttpServlet {
                 "\"userId\": " + userId + ", " +
                 "\"accountId\": \"" + accountId + "\", " +
                 "\"accountNumber\": \"" + accountNumber + "\", " +
+                "\"balanceInCents\": \"" + balanceInCents + "\", " +
                 "\"branchNumber\": \"" + branchNumber + "\" }"
             );
         } else {

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useLocation, Navigate } from "react-router-dom";
 import Header from "./components/Header.js";
 import Balance from "./components/Balance.js";
 import Transference from "./components/Transference.js";
@@ -12,6 +11,7 @@ import Title from "./components/Title.js";
 function Home() {
   const [totalEntradas, setTotalEntradas] = useState(0);
   const [totalSaidas, setTotalSaidas] = useState(0);
+  const [balanceInCents, setBalanceInCents] = useState(0);
   const [accountId, setAccountId] = useState(null);
  
   useEffect(() => {
@@ -26,6 +26,7 @@ function Home() {
           const sessionData = await response.json();
           if (sessionData.accountId) {
             setAccountId(sessionData.accountId);
+            setBalanceInCents(sessionData.balanceInCents);
           } else {
             console.log("AccountId não encontrado na sessão.");
           }
@@ -45,8 +46,10 @@ function Home() {
       fetch(`http://localhost:8080/transaction-summary/${accountId}`)
         .then(response => response.json())
         .then(data => {
+          console.log(data);
           setTotalEntradas(data.totalCredit || 0);
           setTotalSaidas(data.totalDebit || 0);
+          
         })
         .catch(error => {
           console.error("Erro ao buscar transferências:", error);
@@ -57,7 +60,7 @@ function Home() {
     <RequireAuth>
       <div className="home">
         <Header />
-        <Balance balance="" />
+        <Balance balance={(balanceInCents / 100).toFixed(2)}  />
 
         <section className="section_transfer">
           <Transference type="entradas" title="Entradas" value={totalEntradas} />
