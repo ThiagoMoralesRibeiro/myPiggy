@@ -9,13 +9,17 @@ import transferencia from "../imgs/icons/arrow_transferencia.png";
 
 import "../styles/components/main_button.css";
 
-function MainButton(){
-    const [showActions, setShowActions] = useState(false);
 
-    // Função para alternar a visibilidade
+    
+function MainButton(){    
+    const [showActions, setShowActions] = useState(false);
+    
     const toggleActions = () => {
         setShowActions(!showActions);
+        var filter = document.querySelector(".filter");
+        filter.classList.toggle("blurred")
     };
+    
 
     return (
         <button class="main_button_container">
