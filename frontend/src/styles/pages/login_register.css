@@ -15,7 +15,7 @@
     transition: all 150ms ease-in;
 }
 
-.signin_section, .register_section {
+.signin_section {
     margin-top: 50px;
 }
 
@@ -44,7 +44,7 @@
     border-radius: 10px;
     box-shadow: 3px 3px 9px rgba(0, 0, 0, 0.35);
     font-size: 18px;
-    height: 30px;
+    height: 20px;
     outline: none;
     padding: 10px;
     width: 330px;
