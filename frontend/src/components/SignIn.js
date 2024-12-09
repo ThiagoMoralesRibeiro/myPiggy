@@ -4,7 +4,7 @@ function SignIn({href, target, width, height, type, children}){
     return (
         <a 
         type={type}
-        class="signin"
+        className="signin"
         href={href}
         target={target}
         style = {{

@@ -4,7 +4,7 @@ import "../styles/components/signin.css";
 function GoogleSignIn({href, target, width, height, children}){
     return (
         <a 
-        class="google"
+        className="google"
         href={href}
         target={target}
         style = {{
