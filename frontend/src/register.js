@@ -8,38 +8,6 @@ import Link from "./components/Link.js";
 import "./styles/pages/login_register.css";
 import "./styles/pages/index.css";
 
-/*
-
-    const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    const validateCPF = (cpf) => /^\d{11}$/.test(cpf);
-    const validatePhone = (phone) => /^\d{10,11}$/.test(phone);
-    const validatePassword = (password) => password.length >= 8;
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSubmit = (e) => {
-
-        e.preventDefault();
-        const newErrors = {};
-
-        if (!validateEmail(formData.signup_email)) {newErrors.email = "E-mail inválido."};
-        if (!validateCPF(formData.signup_cpf)) {newErrors.cpf = "CPF inválido (11 dígitos)."};
-        if (!validatePhone(formData.signup_phone)) {newErrors.phone = "Telefone inválido."};
-        if (!validatePassword(formData.signup_password)){newErrors.password = "Senha deve ter pelo menos 8 caracteres.";}
-        if (formData.signup_password !== formData.signup_password_confirm){newErrors.password_confirm = "Senhas não coincidem.";}
-
-        setErrors(newErrors);
-
-        if (Object.keys(newErrors).length === 0) {
-            alert("Cadastro realizado com sucesso!");
-        }
-    };
-
-
-                     */
 function Register() {
   const [formData, setFormData] = useState({
     signup_name: "",
