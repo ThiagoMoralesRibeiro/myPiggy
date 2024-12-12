@@ -153,27 +153,48 @@ Remove uma conta específica pelo número.
 ### Transaction
 ```json
 {
-        "id": "37f402f0-921d-4659-8fe1-1f4380c26bf6",
-        "account": {
-            "balanceInCents": 5000,
-            "accountType": "BankAccount",
-            "accountNumber": "1234567890",
-            "branchNumber": "2"
-        },
-        "transactionType": "credit",
-        "amountInCents": 8000,
-        "description": "Teste de transacao",
-        "transactionDate": {
-            "year": 2024,
-            "month": 1,
-            "day": 2
-        },
-        "category": {
-            "id": 3,
-            "name": "Outros",
-            "description": "Despesas diversas que não se enquadram em outras categorias"
-        },
-        "isRecurring": false
+  "id": "37f402f0-921d-4659-8fe1-1f4380c26bf6",
+  "account": {
+    "balanceInCents": 5000,
+    "accountType": "BankAccount",
+    "accountNumber": "1234567890",
+    "branchNumber": "2"
+  },
+  "transactionType": "credit",
+  "amountInCents": 8000,
+  "description": "Teste de transacao",
+  "transactionDate": {
+    "year": 2024,
+    "month": 1,
+    "day": 2
+  },
+  "category": {
+    "id": 3,
+    "name": "Outros",
+    "description": "Despesas diversas que não se enquadram em outras categorias"
+  },
+  "isRecurring": false
 }
+
+```
+### Category
+```json
+[
+    {
+        "id": 3,
+        "name": "Outros",
+        "description": "Despesas diversas que não se enquadram em outras categorias"
+    },
+    {
+        "id": 1,
+        "name": "Alimentação",
+        "description": "Despesas com alimentos, refeicoes e outros"
+    },
+    {
+        "id": 4,
+        "name": "Investimentos",
+        "description": "Valor adicionado a carteira de investimento"
+    }
+]
 ```
 
