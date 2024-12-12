@@ -284,6 +284,60 @@ Host: api.exemplo.com
 }
 ```
 
+
+### 1. **GET /user**
+
+Obtém a lista de todos os usuários.
+
+#### Exemplo de resposta:
+```json
+[
+    {
+        "id": 6,
+        "name": "João Silva",
+        "email": "joao.silva@example.com",
+        "password": "password123",
+        "birthDate": {
+            "year": 1990,
+            "month": 5,
+            "day": 20
+        },
+        "phoneNumber": "11987654321",
+        "cpf": "12345678901",
+        "cep": "01001000"
+    },
+    {
+        "id": 7,
+        "name": "Mark Hamill",
+        "email": "mk@example.com",
+        "password": "$2b$10$MCYKEbjqY2fn4KEno1Ii/uj1ZZk2t00DDzoYAW.hd7UK7U7cg1yT.",
+        "birthDate": {
+            "year": 2000,
+            "month": 5,
+            "day": 21
+        },
+        "phoneNumber": "119876597895",
+        "cpf": "12365478965",
+        "cep": "88704079"
+    },
+    {
+        "id": 8,
+        "name": "Marcos Nunes",
+        "email": "marq12@gmail.com",
+        "password": "$2b$10$shUJvCLizt96Tyux5El9nOYl0kF/TvZRTUxPM2FW41Tjj91sADZ1e",
+        "birthDate": {
+            "year": 2024,
+            "month": 5,
+            "day": 21
+        },
+        "phoneNumber": "11987654726",
+        "cpf": "12365478900",
+        "cep": "07115000"
+    }
+]
+
+
+
 ## Esquema dos objetos
 
 ### User
