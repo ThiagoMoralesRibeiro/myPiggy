@@ -519,7 +519,7 @@ Remove uma categoria com base no seu `id`.
 {
     "message": "Categoria deletada com sucesso."
 }
-``
+```
 
 
 
