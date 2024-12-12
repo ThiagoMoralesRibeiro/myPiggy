@@ -430,6 +430,99 @@ Se a exclusão do usuário for bem-sucedida, o servidor responderá com uma mens
 ```
 
 
+###  **GET /category**
+
+Obtém todas as categorias cadastradas.
+
+#### Exemplo de resposta:
+
+```json
+[
+    {
+        "id": 3,
+        "name": "Outros",
+        "description": "Despesas diversas que não se enquadram em outras categorias"
+    },
+    {
+        "id": 1,
+        "name": "Alimentação",
+        "description": "Despesas com alimentos, refeições e outros"
+    },
+    {
+        "id": 4,
+        "name": "Investimentos",
+        "description": "Valor adicionado à carteira de investimento"
+    }
+]
+```
+
+###  **GET /category/{id}**
+
+Obtém as informações detalhadas de uma categoria específica com base no seu `id`.
+
+#### Parâmetros de caminho:
+- `id`: O ID da categoria que você deseja obter.
+
+#### Exemplo de resposta:
+
+```json
+{
+    "id": 1,
+    "name": "Alimentação",
+    "description": "Despesas com alimentos, refeições e outros"
+}
+```
+
+### **POST /category**
+
+Cria uma nova categoria.
+
+#### Corpo da requisição (JSON):
+
+O corpo da requisição deve conter as informações da nova categoria.
+
+```json
+{
+    "name": "Saúde",
+    "description": "Despesas com cuidados médicos e medicamentos"
+}
+```
+
+###  **PUT /category/{id}**
+
+Atualiza as informações de uma categoria existente com base no seu `id`.
+
+#### Parâmetros de caminho:
+- `id`: O ID da categoria que você deseja atualizar.
+
+#### Corpo da requisição (JSON):
+
+O corpo da requisição deve conter as informações atualizadas da categoria.
+
+```json
+{
+    "name": "Saúde Atualizada",
+    "description": "Despesas com cuidados médicos, medicamentos e planos de saúde"
+}
+```
+
+### 5. **DELETE /category/{id}**
+
+Remove uma categoria com base no seu `id`.
+
+#### Parâmetros de caminho:
+- `id`: O ID da categoria que você deseja remover.
+
+#### Exemplo de resposta:
+
+```json
+{
+    "message": "Categoria deletada com sucesso."
+}
+``
+
+
+
 
 ## Esquema dos objetos
 
