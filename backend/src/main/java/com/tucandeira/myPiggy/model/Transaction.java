@@ -1,5 +1,6 @@
 package com.tucandeira.myPiggy.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -24,13 +25,13 @@ public class Transaction {
   private TransactionType transactionType;
   private int amountInCents;
   private String description;
-  private LocalDateTime transactionDate;
+  private LocalDate transactionDate;
   private Category category;
   private boolean isRecurring;
   private Recurrency recurrencePeriod;
 
   public Transaction(UUID id, Account account, TransactionType transactionType, int amountInCents,
-      String description, LocalDateTime transactionDate, Category category,  boolean isRecurring,
+      String description, LocalDate transactionDate, Category category,  boolean isRecurring,
       Recurrency recurrency) {
 
     this.setId(id);
@@ -85,11 +86,11 @@ public class Transaction {
     this.description = description;
   }
 
-  public LocalDateTime getTransactionDate() {
+  public LocalDate getTransactionDate() {
     return transactionDate;
   }
 
-  public void setTransactionDate(LocalDateTime transactionDate) {
+  public void setTransactionDate(LocalDate transactionDate) {
     this.transactionDate = transactionDate;
   }
 

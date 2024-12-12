@@ -17,7 +17,6 @@ services:
     depends_on:
       - postgres
 
-
   frontend:
     build:
       context: ./frontend

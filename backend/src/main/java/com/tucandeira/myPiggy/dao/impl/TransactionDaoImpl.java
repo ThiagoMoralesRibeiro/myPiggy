@@ -7,9 +7,11 @@ import com.tucandeira.myPiggy.model.Transaction;
 import com.tucandeira.myPiggy.utils.DbConnection;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public class TransactionDaoImpl implements TransactionDao {
       stmt.setObject(3, transaction.getTransactionType().name());
       stmt.setInt(4, transaction.getAmountInCents());
       stmt.setString(5, transaction.getDescription());
-      stmt.setTimestamp(6, java.sql.Timestamp.valueOf(transaction.getTransactionDate()));
+      stmt.setDate(6, java.sql.Date.valueOf(transaction.getTransactionDate()));
       stmt.setBoolean(7, transaction.isRecurring());
       if (transaction.getRecurrencePeriod() != null) {
         stmt.setString(8, transaction.getRecurrencePeriod().name());
@@ -85,6 +87,10 @@ public class TransactionDaoImpl implements TransactionDao {
 
       if (result.next()) {
 
+        Date sqlDate = result.getDate("transaction_date");
+
+        LocalDate birthDate = sqlDate != null ? sqlDate.toLocalDate() : null;
+
         Category category = new Category(
             result.getInt("category_id"),
             result.getString("category_name"),
@@ -102,7 +108,7 @@ public class TransactionDaoImpl implements TransactionDao {
             Transaction.TransactionType.valueOf(result.getString("transaction_type").toLowerCase()),
             result.getInt("amount_in_cents"),
             result.getString("transaction_description"),
-            result.getTimestamp("transaction_date").toLocalDateTime(),
+            birthDate,
             category,
             result.getBoolean("is_recurring"),
             result.getString("recurrence_period") != null
@@ -148,6 +154,10 @@ public class TransactionDaoImpl implements TransactionDao {
       ResultSet result = stmt.executeQuery();
 
       while (result.next()) {
+        Date sqlDate = result.getDate("transaction_date");
+
+        LocalDate birthDate = sqlDate != null ? sqlDate.toLocalDate() : null;
+
         Category category = new Category(
             result.getInt("category_id"),
             result.getString("category_name"),
@@ -165,7 +175,7 @@ public class TransactionDaoImpl implements TransactionDao {
             Transaction.TransactionType.valueOf(result.getString("transaction_type").toLowerCase()),
             result.getInt("amount_in_cents"),
             result.getString("transaction_description"),
-            result.getTimestamp("transaction_date").toLocalDateTime(),
+            birthDate,
             category,
             result.getBoolean("is_recurring"),
             result.getString("recurrence_period") != null
@@ -195,15 +205,14 @@ public class TransactionDaoImpl implements TransactionDao {
             WHERE id = ?
         """;
 
-    try{
+    try {
       Connection conn = dbConnection.getConnection();
       PreparedStatement stmt = conn.prepareStatement(sql);
 
-      
       stmt.setString(1, transaction.getTransactionType().name().toLowerCase());
       stmt.setInt(2, transaction.getAmountInCents());
       stmt.setString(3, transaction.getDescription());
-      stmt.setTimestamp(4, java.sql.Timestamp.valueOf(transaction.getTransactionDate()));
+      stmt.setObject(4, transaction.getTransactionDate());
       stmt.setObject(5, transaction.getCategory().getId());
       stmt.setBoolean(6, transaction.isRecurring());
       stmt.setString(7,
@@ -230,6 +239,40 @@ public class TransactionDaoImpl implements TransactionDao {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  public double getTotalCredit(UUID accountId) {
+    String sql = "SELECT SUM(amount_in_cents) AS total FROM transactions WHERE transaction_type = 'credit' AND account_id = ?";
+    try {
+      Connection conn = dbConnection.getConnection();
+      PreparedStatement stmt = conn.prepareStatement(sql);
+      stmt.setObject(1, accountId);
+      ResultSet result = stmt.executeQuery();
+
+      if (result.next()) {
+        return result.getDouble("total") / 100.0;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return 0;
+  }
+
+  public double getTotalDebit(UUID accountId) {
+   String sql = "SELECT SUM(amount_in_cents) AS total FROM transactions WHERE transaction_type = 'debit' AND account_id = ?";
+    try {
+      Connection conn = dbConnection.getConnection();
+      PreparedStatement stmt = conn.prepareStatement(sql);
+      stmt.setObject(1, accountId);
+      ResultSet result = stmt.executeQuery();
+
+      if (result.next()) {
+        return result.getDouble("total") / 100.0;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return 0; 
   }
 
 }

@@ -36,7 +36,13 @@ function CategorySelect({ onChange, value }) {
   return (
     <label>
       <img src={folder} alt="Folder" />
-      <select id="category" name="input_category" value={value} onChange={onChange} required>
+      <select
+        id="category"
+        name="input_category"
+        value={value}
+        onChange={onChange}
+        required
+      >
         <option value="" disabled>
           Categoria
         </option>
@@ -59,80 +65,144 @@ function Entrada() {
     input_date: "",
   });
 
+  const [sessionData, setSessionData] = useState(null);
+
+  useEffect(() => {
+    const fetchSessionData = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/session-info", {
+          method: "GET",
+          credentials: "include",
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setSessionData(data);
+        } else {
+          console.error("Erro ao obter as informações da sessão.");
+        }
+      } catch (error) {
+        console.error("Erro ao verificar a sessão", error);
+      }
+    };
+
+    fetchSessionData();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Dados enviados:", formData);
 
+    if (!sessionData || !sessionData.accountId) {
+      console.error("Sessão inválida ou conta não encontrada.");
+      return;
+    }
+
+    const transactionData = {
+      account: {
+        id: sessionData.accountId,
+      },
+      transactionType: "credit",
+      amountInCents: parseFloat(formData.input_money.replace(",", ".")) * 100,
+      description: formData.input_desc,
+      transactionDate: {
+        year: new Date(formData.input_date).getFullYear(),
+        month: new Date(formData.input_date).getMonth() + 1,
+        day: new Date(formData.input_date).getDate() + 1,
+      },
+      category: {
+        id: formData.input_category,
+      },
+      isRecurring: false,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8080/transaction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(transactionData),
+      });
+
+      if (response.ok) {
+        alert("Transação criada com sucesso!");
+        window.location.href = 'http://localhost:3000/home';
+      } else {
+        alert("Erro ao criar transação.");
+      }
+    } catch (error) {
+      console.error("Erro na requisição", error);
+    }
   };
 
   return (
     <div className="MoneyInput">
       <main>
-          <Link href="/home" color="white" fontsize="28px" decoration="none">
-            ← Nova entrada
-          </Link>
-          <form method="post" onSubmit={handleSubmit}>
-            <div class="value">
-              <Subtitle color="white" fontsize="18px">
-                Valor da entrada
-              </Subtitle>
-              <Input
-                label="R$"
-                type="text"
-                name="input_money"
-                placeholder="0,00"
-                value={formData.input_money}
+        <Link href="/home" color="white" fontsize="28px" decoration="none">
+          ← Nova entrada
+        </Link>
+        <form method="post" onSubmit={handleSubmit}>
+          <div class="value">
+            <Subtitle color="white" fontsize="18px">
+              Valor da entrada
+            </Subtitle>
+            <Input
+              label="R$"
+              type="text"
+              name="input_money"
+              placeholder="0,00"
+              value={formData.input_money}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div class="info">
+            <CategorySelect
+              value={formData.input_category}
+              onChange={handleChange}
+            />
+            <Input
+              label={<img src={description} alt="Description" />}
+              type="text"
+              name="input_desc"
+              placeholder="Descrição"
+              value={formData.input_desc}
+              onChange={handleChange}
+            />
+            <label>
+              <img src={wallet} alt="Account" />
+              <select
+                id="account"
+                name="input_account"
+                value={formData.input_account}
                 onChange={handleChange}
                 required
-              />
-            </div>
-            <div class="info">
-              <CategorySelect
-                value={formData.input_category}
-                onChange={handleChange}
-              />
-              <Input
-                label={<img src={description} alt="Description" />}
-                type="text"
-                name="input_desc"
-                placeholder="Descrição"
-                value={formData.input_desc}
-                onChange={handleChange}
-              />
-              <label>
-                <img src={wallet} alt="Account" />
-                <select
-                  id="account"
-                  name="input_account"
-                  value={formData.input_account}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="" disabled>
-                    Conta
-                  </option>
-                  <option value="wallet">Carteira</option>
-                  <option value="salary">Conta salário</option>
-                </select>
-              </label>
-              <Input
-                label={<img src={calendar} alt="Calendar" />}
-                type="date"
-                name="input_date"
-                value={formData.input_date}
-                onChange={handleChange}
-                required
-              />
-              <button type="submit">
-                <img src={entrada} alt="Confirm" />
-              </button>
-            </div>
-          </form>
+              >
+                <option value="" disabled>
+                  Conta
+                </option>
+                <option value="wallet">Carteira</option>
+                <option value="salary">Conta salário</option>
+              </select>
+            </label>
+            <Input
+              label={<img src={calendar} alt="Calendar" />}
+              type="date"
+              name="input_date"
+              value={formData.input_date}
+              onChange={handleChange}
+              required
+            />
+            <button type="submit">
+              <img src={entrada} alt="Confirm" />
+            </button>
+          </div>
+        </form>
       </main>
     </div>
   );
