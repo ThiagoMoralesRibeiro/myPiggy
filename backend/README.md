@@ -114,6 +114,210 @@ Remove uma conta específica pelo número.
 - **200**: Conta removida com sucesso.
 - **404**: Conta não encontrada.
 
+
+# Transaction API - Rotas e Requisições
+
+Este documento detalha as rotas e exemplos de requisições para a API de Transações.
+
+## Estrutura Geral da Transação
+
+Cada transação possui a seguinte estrutura:
+
+```json
+{
+    "id": "<UUID>",
+    "account": {
+        "balanceInCents": <int>,
+        "accountType": "<BankAccount | CreditAccount>",
+        "accountNumber": "<string>",
+        "branchNumber": "<string>"
+    },
+    "transactionType": "<credit | debit>",
+    "amountInCents": <int>,
+    "description": "<string>",
+    "transactionDate": {
+        "year": <int>,
+        "month": <int>,
+        "day": <int>
+    },
+    "category": {
+        "id": <int>,
+        "name": "<string>",
+        "description": "<string>"
+    },
+    "isRecurring": <bool>
+}
+```
+
+
+### `GET /transaction`
+
+Retorna uma lista de todas as transações.
+
+**Exemplo de Requisição:**
+
+```
+GET /transaction HTTP/1.1
+Host: api.exemplo.com
+```
+
+**Resposta de Sucesso:**
+
+```json
+[
+    {
+        "id": "ea1c5090-590a-4725-a19a-070238bff764",
+        "account": {
+            "balanceInCents": 5000,
+            "accountType": "BankAccount",
+            "accountNumber": "1234567890",
+            "branchNumber": "2"
+        },
+        "transactionType": "debit",
+        "amountInCents": 8000,
+        "description": "Teste de transacao",
+        "transactionDate": {
+            "year": 2024,
+            "month": 1,
+            "day": 2
+        },
+        "category": {
+            "id": 3,
+            "name": "Outros",
+            "description": "Despesas diversas que não se enquadram em outras categorias"
+        },
+        "isRecurring": false
+    }
+]
+```
+
+### `GET /transaction/{id}`
+
+Retorna os detalhes de uma transação especificada pelo ID.
+
+**Exemplo de Requisição:**
+
+```
+GET /transaction/ea1c5090-590a-4725-a19a-070238bff764 HTTP/1.1
+Host: api.exemplo.com
+```
+
+**Resposta de Sucesso:**
+
+```json
+{
+    "id": "ea1c5090-590a-4725-a19a-070238bff764",
+    "account": {
+        "balanceInCents": 5000,
+        "accountType": "BankAccount",
+        "accountNumber": "1234567890",
+        "branchNumber": "2"
+    },
+    "transactionType": "debit",
+    "amountInCents": 8000,
+    "description": "Teste de transacao",
+    "transactionDate": {
+        "year": 2024,
+        "month": 1,
+        "day": 2
+    },
+    "category": {
+        "id": 3,
+        "name": "Outros",
+        "description": "Despesas diversas que não se enquadram em outras categorias"
+    },
+    "isRecurring": false
+}
+```
+
+### `POST /transaction`
+
+Cria uma nova transação.
+
+**Exemplo de Requisição:**
+
+```
+POST /transaction HTTP/1.1
+Host: api.exemplo.com
+Content-Type: application/json
+
+{
+    "account": {
+        "balanceInCents": 10000,
+        "accountType": "BankAccount",
+        "accountNumber": "1234567893",
+        "branchNumber": "004"
+    },
+    "transactionType": "credit",
+    "amountInCents": 2000,
+    "description": "Depósito",
+    "transactionDate": {
+        "year": 2024,
+        "month": 11,
+        "day": 11
+    },
+    "category": {
+        "id": 3,
+        "name": "Outros",
+        "description": "Despesas diversas que não se enquadram em outras categorias"
+    },
+    "isRecurring": false
+}
+```
+
+**Resposta de Sucesso:**
+
+```json
+{
+    "id": "novo-id-gerado",
+    "message": "Transação criada com sucesso."
+}
+```
+
+### `PUT /transaction/{id}`
+
+Atualiza uma transação existente.
+
+**Exemplo de Requisição:**
+
+```
+PUT /transaction/ea1c5090-590a-4725-a19a-070238bff764 HTTP/1.1
+Host: api.exemplo.com
+Content-Type: application/json
+
+{
+    "description": "Compra de supermercado",
+    "amountInCents": 12000
+}
+```
+
+**Resposta de Sucesso:**
+
+```json
+{
+    "message": "Transação atualizada com sucesso."
+}
+```
+
+### `DELETE /transaction/{id}`
+
+Remove uma transação pelo ID.
+
+**Exemplo de Requisição:**
+
+```
+DELETE /transaction/ea1c5090-590a-4725-a19a-070238bff764 HTTP/1.1
+Host: api.exemplo.com
+```
+
+**Resposta de Sucesso:**
+
+```json
+{
+    "message": "Transação removida com sucesso."
+}
+```
+
 ## Esquema dos objetos
 
 ### User
