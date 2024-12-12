@@ -335,6 +335,99 @@ Obtém a lista de todos os usuários.
         "cep": "07115000"
     }
 ]
+```
+
+### **GET /user/{id}**
+
+Obtém informações detalhadas de um usuário específico com base no seu `id`.
+
+#### Parâmetros de caminho:
+- `id`: O ID do usuário que você deseja obter.
+
+#### Exemplo de resposta:
+```json
+{
+    "id": 6,
+    "name": "João Silva",
+    "email": "joao.silva@example.com",
+    "password": "password123",
+    "birthDate": {
+        "year": 1990,
+        "month": 5,
+        "day": 20
+    },
+    "phoneNumber": "11987654321",
+    "cpf": "12345678901",
+    "cep": "01001000"
+}
+
+```
+
+###  **POST /user**
+
+Cria um novo usuário.
+
+#### Corpo da requisição (JSON):
+O corpo da requisição deve conter as informações do novo usuário a ser criado.
+
+```json
+{
+    "name": "Novo Usuário",
+    "email": "novo.usuario@example.com",
+    "password": "senha123",
+    "birthDate": {
+        "year": 1995,
+        "month": 8,
+        "day": 15
+    },
+    "phoneNumber": "11987654321",
+    "cpf": "12345678999",
+    "cep": "01001000"
+}
+
+```
+
+###  **PUT /user/{id}**
+
+Atualiza as informações de um usuário existente com base no seu `id`.
+
+#### Parâmetros de caminho:
+- `id`: O ID do usuário que você deseja atualizar.
+
+#### Corpo da requisição (JSON):
+O corpo da requisição deve conter as informações atualizadas do usuário.
+
+```json
+{
+    "name": "João Silva Atualizado",
+    "email": "joao.silva.updated@example.com",
+    "password": "newpassword123",
+    "birthDate": {
+        "year": 1990,
+        "month": 5,
+        "day": 20
+    },
+    "phoneNumber": "11987654322",
+    "cpf": "12345678901",
+    "cep": "01001001"
+}
+```
+
+### 5. **DELETE /user/{id}**
+
+Remove um usuário com base no seu `id`.
+
+#### Parâmetros de caminho:
+- `id`: O ID do usuário que você deseja remover.
+
+#### Exemplo de resposta:
+Se a exclusão do usuário for bem-sucedida, o servidor responderá com uma mensagem indicando o sucesso da operação:
+
+```json
+{
+    "message": "Usuário deletado com sucesso."
+}
+``
 
 
 
