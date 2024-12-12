@@ -115,40 +115,6 @@ Remove uma conta específica pelo número.
 - **404**: Conta não encontrada.
 
 
-# Transaction API - Rotas e Requisições
-
-Este documento detalha as rotas e exemplos de requisições para a API de Transações.
-
-## Estrutura Geral da Transação
-
-Cada transação possui a seguinte estrutura:
-
-```json
-{
-    "id": "<UUID>",
-    "account": {
-        "balanceInCents": <int>,
-        "accountType": "<BankAccount | CreditAccount>",
-        "accountNumber": "<string>",
-        "branchNumber": "<string>"
-    },
-    "transactionType": "<credit | debit>",
-    "amountInCents": <int>,
-    "description": "<string>",
-    "transactionDate": {
-        "year": <int>,
-        "month": <int>,
-        "day": <int>
-    },
-    "category": {
-        "id": <int>,
-        "name": "<string>",
-        "description": "<string>"
-    },
-    "isRecurring": <bool>
-}
-```
-
 
 ### `GET /transaction`
 
