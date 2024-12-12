@@ -427,7 +427,7 @@ Se a exclusão do usuário for bem-sucedida, o servidor responderá com uma mens
 {
     "message": "Usuário deletado com sucesso."
 }
-``
+```
 
 
 
