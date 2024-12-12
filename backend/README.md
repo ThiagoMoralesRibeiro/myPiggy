@@ -131,7 +131,7 @@ Remove uma conta específica pelo número.
         "phoneNumber": "11987654321",
         "cpf": "12345678901",
         "cep": "01001000"
-    },
+}
 ```
 
 ### Account
