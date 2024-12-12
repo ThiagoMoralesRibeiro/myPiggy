@@ -37,6 +37,28 @@ public class LoginServlet extends HttpServlet {
     String email = request.getParameter("email");
     String password = request.getParameter("password");
 
+    try {
+      Account accountInfo = authenticateUser(email, password);
+
+      if (accountInfo != null) {
+        setupSessionAndCookies(request, response, accountInfo);
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().write("{\"message\": \"Login successful\"}");
+      } else {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().write("{\"error\": \"Invalid email or password\"}");
+      }
+    } catch (IOException e) {
+      response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+      response.getWriter().write("{\"error\": \"User not found\"}");
+    } catch (Exception e) {
+      e.printStackTrace();
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      response.getWriter().write("{\"error\": \"Server error, please try again later\"}");
+    }
+  }
+
+  private Account authenticateUser(String email, String password) throws Exception {
     try (Connection conn = new DbConnection().getConnection()) {
       String sql = "SELECT * FROM users WHERE email = ?";
       PreparedStatement stmt = conn.prepareStatement(sql);
@@ -45,52 +67,125 @@ public class LoginServlet extends HttpServlet {
 
       if (result.next()) {
         String storedHash = result.getString("password");
-
         String pepperedPassword = password + PEPPER;
 
         BCrypt.Result resultCrypt = BCrypt.verifyer().verify(pepperedPassword.toCharArray(), storedHash);
 
         if (resultCrypt.verified) {
-          int userId = result.getInt("id"); // Validamos que o valor do ID estamos pegando
-          //System.out.println("O valor do userId: " + userId);
-
-          Account accountInfo = accountDao.findByUserId(userId);
-
-          if (accountInfo != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("email", email);
-            session.setAttribute("userId", accountInfo.getUser().getId());
-            session.setAttribute("userName", accountInfo.getUser().getName());
-            session.setAttribute("accountId", accountInfo.getId());
-            session.setAttribute("accountNumber", accountInfo.getAccountNumber());
-            session.setAttribute("branchNumber", accountInfo.getBranchNumber());
-            session.setAttribute("balanceInCents", accountInfo.getBalanceInCents());
-            session.setAttribute("email", email); 
-            Cookie jsessionCookie = new Cookie("JSESSIONID", session.getId());
-
-            jsessionCookie.setMaxAge(-1);
-            jsessionCookie.setHttpOnly(true);
-
-            jsessionCookie.setSecure(true);
-            jsessionCookie.setPath("/");
-            response.addCookie(jsessionCookie);
-          }
-
-          response.setStatus(HttpServletResponse.SC_OK);
-          response.getWriter().write("{\"message\": \"Login successful\"}");
-
+          int userId = result.getInt("id");
+          return accountDao.findByUserId(userId);
         } else {
-          response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-          response.getWriter().write("{\"error\": \"Invalid email or password\"}");
+          return null; // Senha incorreta
         }
       } else {
-        response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
-        response.getWriter().write("{\"error\": \"User not found\"}");
+        return null; // Usuario nao encontrado
       }
-    } catch (Exception e) {
-      e.printStackTrace();
-      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500
-      response.getWriter().write("{\"error\": \"Server error, please try again later\"}");
     }
   }
+
+  private void setupSessionAndCookies(HttpServletRequest request, HttpServletResponse response, Account accountInfo) {
+    HttpSession session = request.getSession();
+    session.setAttribute("email", accountInfo.getUser().getEmail());
+    session.setAttribute("userId", accountInfo.getUser().getId());
+    session.setAttribute("userName", accountInfo.getUser().getName());
+    session.setAttribute("accountId", accountInfo.getId());
+    session.setAttribute("accountNumber", accountInfo.getAccountNumber());
+    session.setAttribute("branchNumber", accountInfo.getBranchNumber());
+    session.setAttribute("balanceInCents", accountInfo.getBalanceInCents());
+
+    Cookie jsessionCookie = new Cookie("JSESSIONID", session.getId());
+    jsessionCookie.setMaxAge(-1);
+    jsessionCookie.setHttpOnly(true);
+    jsessionCookie.setSecure(true);
+    jsessionCookie.setPath("/");
+    response.addCookie(jsessionCookie);
+  }
 }
+
+/*
+ * @WebServlet("/login")
+ * public class LoginServlet extends HttpServlet {
+ * 
+ * private AccountDao accountDao;
+ * private static final String PEPPER = "StandByMeGuys";
+ * 
+ * @Override
+ * public void init() throws ServletException {
+ * accountDao = new AccountDaoImpl();
+ * }
+ * 
+ * @Override
+ * public void doPost(HttpServletRequest request, HttpServletResponse response)
+ * throws ServletException, IOException {
+ * String email = request.getParameter("email");
+ * String password = request.getParameter("password");
+ * 
+ * try {
+ * Account accountInfo = authenticateUser(email, password);
+ * 
+ * if (accountInfo != null) {
+ * setupSessionAndCookies(request, response, accountInfo);
+ * response.setStatus(HttpServletResponse.SC_OK);
+ * response.getWriter().write("{\"message\": \"Login successful\"}");
+ * } else {
+ * response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+ * response.getWriter().write("{\"error\": \"Invalid email or password\"}");
+ * }
+ * } catch (UserNotFoundException e) {
+ * response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+ * response.getWriter().write("{\"error\": \"User not found\"}");
+ * } catch (Exception e) {
+ * e.printStackTrace();
+ * response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+ * response.getWriter().
+ * write("{\"error\": \"Server error, please try again later\"}");
+ * }
+ * }
+ * 
+ * private Account authenticateUser(String email, String password) throws
+ * Exception {
+ * try (Connection conn = new DbConnection().getConnection()) {
+ * String sql = "SELECT * FROM users WHERE email = ?";
+ * PreparedStatement stmt = conn.prepareStatement(sql);
+ * stmt.setString(1, email);
+ * ResultSet result = stmt.executeQuery();
+ * 
+ * if (result.next()) {
+ * String storedHash = result.getString("password");
+ * String pepperedPassword = password + PEPPER;
+ * 
+ * BCrypt.Result resultCrypt =
+ * BCrypt.verifyer().verify(pepperedPassword.toCharArray(), storedHash);
+ * 
+ * if (resultCrypt.verified) {
+ * int userId = result.getInt("id");
+ * return accountDao.findByUserId(userId);
+ * } else {
+ * return null; // Senha incorreta
+ * }
+ * } else {
+ * throw new UserNotFoundException("User with email " + email + " not found.");
+ * }
+ * }
+ * }
+ * 
+ * private void setupSessionAndCookies(HttpServletRequest request,
+ * HttpServletResponse response, Account accountInfo) {
+ * HttpSession session = request.getSession();
+ * session.setAttribute("email", accountInfo.getUser().getEmail());
+ * session.setAttribute("userId", accountInfo.getUser().getId());
+ * session.setAttribute("userName", accountInfo.getUser().getName());
+ * session.setAttribute("accountId", accountInfo.getId());
+ * session.setAttribute("accountNumber", accountInfo.getAccountNumber());
+ * session.setAttribute("branchNumber", accountInfo.getBranchNumber());
+ * session.setAttribute("balanceInCents", accountInfo.getBalanceInCents());
+ * 
+ * Cookie jsessionCookie = new Cookie("JSESSIONID", session.getId());
+ * jsessionCookie.setMaxAge(-1);
+ * jsessionCookie.setHttpOnly(true);
+ * jsessionCookie.setSecure(true);
+ * jsessionCookie.setPath("/");
+ * response.addCookie(jsessionCookie);
+ * }
+ * }
+ */
