@@ -8,14 +8,13 @@
     display: none;
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 10px;
-    height: 100%;
-    padding-bottom: 200px;
     transition: all 50ms ease-in-out;
     width: 600px;
     z-index: 90;
 }
 
 .home main .blurred {
+    height: 100%;
     display: block;
 }
 
@@ -64,4 +63,23 @@
     letter-spacing: 1px;
     text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
     justify-content: space-between;
+}
+
+@media (max-width: 720px) {
+    .home main {
+        width: 100%;
+    }
+
+    .home main .filter {
+        width: 100%;
+    }
+
+    .section_transfer {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .section_accounts {
+        width: 80%;
+    }
 }

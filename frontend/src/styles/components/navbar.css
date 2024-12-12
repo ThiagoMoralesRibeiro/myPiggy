@@ -15,7 +15,7 @@
     z-index: 110;
 }
 
-.navbar button {
+.navbar .close {
     align-items: center;
     background-color: transparent;
     border: none;
@@ -29,7 +29,7 @@
     width: 50px;
 }
 
-.navbar button:hover {
+.navbar .close:hover {
     cursor: pointer;
     transform: scale(1.2);
 }
@@ -44,22 +44,33 @@
     top: 100px;
 }
 
-.content .link {
+.content .signout {
     align-items: center;
+    background-color: transparent;
+    border: none;
+    color: #d63333;
+    font-size: 22px;
     display: flex;
     font-weight: 500;
     gap: 20px;
     transition: all 150ms ease-in;
 }
 
-.content .link:hover {
+.content .signout:hover {
+    cursor: pointer;
     transform: scale(1.05);
 }
 
-.content .link img {
+.content .signout img {
     width: 40px;
 }
 
 .navbar.hidden {
     display: none;
+}
+
+@media (max-width: 720px) {
+    .navbar {
+        width: 320px;
+    }
 }

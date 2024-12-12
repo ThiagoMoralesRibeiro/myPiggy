@@ -18,3 +18,9 @@
     justify-content: space-evenly;
     width: 240px;
 }
+
+@media (max-width: 720px) {
+    .footer {
+        width: 100%;
+    }
+}

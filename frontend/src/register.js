@@ -143,7 +143,7 @@ function Register() {
             label="Seu número de celular (com DDD)"
             type="text"
             name="signup_phone"
-            maxlength=""
+            maxlength="11"
             required="true"
             onChange={handleChange}
           >

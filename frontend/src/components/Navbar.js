@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 
-import Link from "./Link";
+// import Link from "./Link";
 
 import signout from "../imgs/icons/signout.png";
 import close from "../imgs/icons/close.png";
@@ -10,7 +10,7 @@ import "../styles/components/navbar.css";
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const newErrors = {};
+  // const newErrors = {};
 
   try {
     const response = await fetch("http://localhost:8080/logout", {
@@ -40,15 +40,13 @@ function Navbar(){
 
     return (
         <div className="navbar hidden">
-            <button onClick={toggleNavbar}>
+            <button onClick={toggleNavbar} class="close">
                 <img src={close} alt="Close Navbar"/>
             </button>
 
             <div class="content">
                 <button
-                    color="#d63333"
-                    fontsize="22px"
-                    decoration="none"
+                    class="signout"
                     onClick={handleSubmit}
                 >
                     <img src={signout} alt="Signout"/>
