@@ -119,10 +119,19 @@ Remove uma conta específica pelo número.
 ### User
 ```json
 {
-  "id": 8,
-  "name": "Marcos Nunes",
-  "email": "marq12@gmail.com"
-}
+        "id": 6,
+        "name": "João Silva",
+        "email": "joao.silva@example.com",
+        "password": "password123",
+        "birthDate": {
+            "year": 1990,
+            "month": 5,
+            "day": 20
+        },
+        "phoneNumber": "11987654321",
+        "cpf": "12345678901",
+        "cep": "01001000"
+    },
 ```
 
 ### Account
