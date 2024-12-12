@@ -1,6 +1,32 @@
 .home {
+    background-color: #1e1e1e;
     height: fit-content;
+}
+
+.home main .filter {
+    position: absolute;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    height: 100%;
     padding-bottom: 200px;
+    transition: all 50ms ease-in-out;
+    width: 600px;
+    z-index: 90;
+}
+
+.home main .blurred {
+    display: block;
+}
+
+.home main {
+    background-color: white;
+    border-radius: 14px;
+    padding-bottom: 200px;
+    position: relative;
+    margin: 0 auto;
+    height: fit-content;
+    width: 600px;
 }
 
 .section_transfer {
@@ -20,7 +46,7 @@
     margin: 80px auto 0px;
     padding: 20px;
     position: relative;
-    width: 60%;
+    width: 90%;
 }
 
 .section_accounts::after {

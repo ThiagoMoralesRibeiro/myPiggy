@@ -10,7 +10,7 @@ function Transference({type, title, value}){
     const typeClass = `transference ${type}`;
 
     return (
-        <div class={typeClass}>
+        <div className={typeClass}>
             <img src={arrow_circ} alt="Arrow Circular"/>
 
             <div class="text">

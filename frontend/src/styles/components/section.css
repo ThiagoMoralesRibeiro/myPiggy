@@ -1,0 +1,23 @@
+.section {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    justify-content: center;
+    width: 80px;
+}
+
+.section img {
+    width: 60px;
+}
+
+.section 
+
+.section .link {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+}

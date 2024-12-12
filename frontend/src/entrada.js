@@ -130,9 +130,10 @@ function Entrada() {
       });
 
       if (response.ok) {
-        console.log("Transação criada com sucesso!");
+        alert("Transação criada com sucesso!");
+        window.location.href = 'http://localhost:3000/home';
       } else {
-        console.error("Erro ao criar transação.");
+        alert("Erro ao criar transação.");
       }
     } catch (error) {
       console.error("Erro na requisição", error);
@@ -141,76 +142,70 @@ function Entrada() {
 
   return (
     <div className="MoneyInput">
-      <Link href="/home" color="white" fontsize="28px" decoration="none">
-        ← Nova entrada
-      </Link>
-
-      <form method="post" onSubmit={handleSubmit}>
-        <div className="value">
-          <Subtitle color="white" fontsize="18px">
-            Valor da entrada
-          </Subtitle>
-
-          <Input
-            label="R$"
-            type="text"
-            name="input_money"
-            placeholder="0,00"
-            value={formData.input_money}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="info">
-          <CategorySelect
-            value={formData.input_category}
-            onChange={handleChange}
-          />
-
-          <Input
-            label={<img src={description} alt="Description" />}
-            type="text"
-            name="input_desc"
-            placeholder="Descrição"
-            value={formData.input_desc}
-            onChange={handleChange}
-          />
-
-          <label>
-            <img src={wallet} alt="Account" />
-            <select
-              id="account"
-              name="input_account"
-              value={formData.input_account}
+      <main>
+        <Link href="/home" color="white" fontsize="28px" decoration="none">
+          ← Nova entrada
+        </Link>
+        <form method="post" onSubmit={handleSubmit}>
+          <div class="value">
+            <Subtitle color="white" fontsize="18px">
+              Valor da entrada
+            </Subtitle>
+            <Input
+              label="R$"
+              type="text"
+              name="input_money"
+              placeholder="0,00"
+              value={formData.input_money}
               onChange={handleChange}
               required
-            >
-              <option value="" disabled>
-                Conta
-              </option>
-              <option value="wallet">Carteira</option>
-              <option value="salary">Conta salário</option>
-            </select>
-          </label>
-
-          <Input
-            label={<img src={calendar} alt="Calendar" />}
-            type="date"
-            name="input_date"
-            value={formData.input_date}
-            onChange={handleChange}
-            required
-          />
-
-          <button type="submit">
-            <img src={entrada} alt="Confirm" />
-          </button>
-        </div>
-      </form>
+            />
+          </div>
+          <div class="info">
+            <CategorySelect
+              value={formData.input_category}
+              onChange={handleChange}
+            />
+            <Input
+              label={<img src={description} alt="Description" />}
+              type="text"
+              name="input_desc"
+              placeholder="Descrição"
+              value={formData.input_desc}
+              onChange={handleChange}
+            />
+            <label>
+              <img src={wallet} alt="Account" />
+              <select
+                id="account"
+                name="input_account"
+                value={formData.input_account}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>
+                  Conta
+                </option>
+                <option value="wallet">Carteira</option>
+                <option value="salary">Conta salário</option>
+              </select>
+            </label>
+            <Input
+              label={<img src={calendar} alt="Calendar" />}
+              type="date"
+              name="input_date"
+              value={formData.input_date}
+              onChange={handleChange}
+              required
+            />
+            <button type="submit">
+              <img src={entrada} alt="Confirm" />
+            </button>
+          </div>
+        </form>
+      </main>
     </div>
   );
 }
 
 export default Entrada;
-

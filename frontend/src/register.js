@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import Logo from "./components/Logo.js"
 import Input from "./components/Input.js";
 import SignIn from "./components/SignIn.js";
 import Subtitle from "./components/Subtitle.js"
@@ -14,16 +13,17 @@ function Register() {
     signup_name: "",
     signup_email: "",
     signup_cpf: "",
+    signup_cep: "",
     signup_phone: "",
     signup_password: "",
-    signup_password_confirm: "",
-    signup_cep: ""
+    signup_password_confirm: ""
   });
 
   const [errors, setErrors] = useState({});
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const validateCPF = (cpf) => /^\d{11}$/.test(cpf);
+  const validateCEP = (cep) => /^\d{8}$/.test(cep);
   const validatePhone = (phone) => /^\d{10,11}$/.test(phone);
   const validatePassword = (password) => password.length >= 8;
 
@@ -38,6 +38,7 @@ function Register() {
 
     if (!validateEmail(formData.signup_email)) { newErrors.email = "E-mail inválido." };
     if (!validateCPF(formData.signup_cpf)) { newErrors.cpf = "CPF inválido (11 dígitos)." };
+    if (!validateCEP(formData.signup_cep)) {newErrors.cep = "CEP inválido (8 dígitos)."};
     if (!validatePhone(formData.signup_phone)) { newErrors.phone = "Telefone inválido." };
     if (!validatePassword(formData.signup_password)) { newErrors.password = "Senha deve ter pelo menos 8 caracteres."; }
     if (formData.signup_password !== formData.signup_password_confirm) { newErrors.password_confirm = "Senhas não coincidem."; }
@@ -93,8 +94,6 @@ function Register() {
         </Link>
       </div>
 
-      <Logo width="100px" height="100px" border="solid 10px white"></Logo>
-
       <section class="register_section">
         <form method="get" action="" onSubmit={handleSubmit}>
           <Input
@@ -130,6 +129,17 @@ function Register() {
           {errors.cpf && <span className="error">{errors.cpf}</span>}
 
           <Input
+            label="Seu CEP (apenas dígitos)"
+            type="text"
+            name="signup_cep"
+            maxlength="8"
+            required="true"
+            onChange={handleChange}
+          >
+          </Input>
+          {errors.cep && <span className="error">{errors.cep}</span>}
+         
+          <Input
             label="Seu número de celular (com DDD)"
             type="text"
             name="signup_phone"
@@ -139,16 +149,6 @@ function Register() {
           >
           </Input>
           {errors.phone && <span className="error">{errors.phone}</span>}
-
-          <Input
-            label="Seu CEP"
-            type="text"
-            name="signup_cep"
-            maxlength="8"
-            required="true"
-            onChange={handleChange}
-          >
-          </Input>
 
           <Input
             label="Sua melhor senha"

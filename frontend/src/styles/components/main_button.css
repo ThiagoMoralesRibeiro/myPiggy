@@ -1,3 +1,7 @@
+.main_button_container {
+    border: none;
+}
+
 .main_button {
     align-items: center;
     background-color: var(--c1);
@@ -7,13 +11,13 @@
     bottom: 40px;
     display: flex;
     left: 50%;
-    position: fixed;
+    position: absolute;
     transition: all 150ms ease-in;
     transform: translate(-50%, 0%);
-    height: 120px;
+    height: 100px;
     justify-content: center;
-    width: 120px;
-    z-index: 999;
+    width: 100px;
+    z-index: 100;
 }
 
 .main_button.open img {
@@ -62,9 +66,9 @@
     box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.8);
     display: flex;
     position: absolute;
-    height: 120px;
+    height: 80px;
     justify-content: center;
-    width: 120px;
+    width: 80px;
 }
 
 .action_buttons .link img {
@@ -73,11 +77,31 @@
 }
 
 .action_buttons .link:first-child {
-    transform: translate(-220px, -220px);
+    transform: translate(-150px, -200px);
+}
+
+.action_buttons .link:first-child::after {
+    color: white;
+    content: 'Entradas';
+    position: absolute;
+    font-size: 18px;
+    font-weight: 700;
+    text-shadow: 0px 3px 6px black;
+    transform: translate(0px, 55px);
 }
 
 .action_buttons .link:nth-child(2) {
-    transform: translate(100px, -220px);
+    transform: translate(75px, -200px);
+}
+
+.action_buttons .link:nth-child(2)::after {
+    color: white;
+    content: 'Saídas';
+    position: absolute;
+    font-size: 18px;
+    font-weight: 700;
+    text-shadow: 0px 3px 6px black;
+    transform: translate(0px, 55px);
 }
 
 .action_buttons .link:nth-child(2) img{
@@ -85,5 +109,15 @@
 }
 
 .action_buttons .link:last-child {
-    transform: translate(-60px, -300px);
+    transform: translate(-40px, -300px);
+}
+
+.action_buttons .link:last-child::after {
+    color: white;
+    content: 'Transferências';
+    position: absolute;
+    font-size: 18px;
+    font-weight: 700;
+    text-shadow: 0px 3px 6px black;
+    transform: translate(0px, 55px);
 }

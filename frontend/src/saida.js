@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 
 import Subtitle from "./components/Subtitle.js";
@@ -7,11 +6,11 @@ import Input from "./components/Input.js";
 
 import "./styles/pages/moneyinput.css";
 
-import saida from "./imgs/icons/saida.png"
-import calendar from "./imgs/icons/calendar.png"
-import wallet from "./imgs/icons/wallet.png"
-import folder from "./imgs/icons/folder.png"
-import description from "./imgs/icons/description.png"
+import saida from "./imgs/icons/saida.png";
+import calendar from "./imgs/icons/calendar.png";
+import wallet from "./imgs/icons/wallet.png";
+import folder from "./imgs/icons/folder.png";
+import description from "./imgs/icons/description.png";
 
 function CategorySelect({ onChange, value }) {
   const [categories, setCategories] = useState([]);
@@ -51,7 +50,6 @@ function CategorySelect({ onChange, value }) {
   );
 }
 
-
 function Saida() {
   const [formData, setFormData] = useState({
     input_money: "",
@@ -84,7 +82,6 @@ function Saida() {
 
     fetchSessionData();
   }, []);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -125,9 +122,10 @@ function Saida() {
         },
         body: JSON.stringify(transactionData),
       });
-      
+
       if (response.ok) {
-        console.log("Transação criada com sucesso!");
+        alert("Transação criada com sucesso!");
+        window.location.href = 'http://localhost:3000/home';
       } else {
         console.error("Erro ao criar transação.");
       }
@@ -136,90 +134,72 @@ function Saida() {
     }
   };
 
-
   return (
     <div className="MoneyInput">
-      <Link
-        href="/home"
-        color="white"
-        fontsize="28px"
-        decoration="none"
-      >
-        ← Nova saída
-      </Link>
+      <main>
+        <Link href="/home" color="white" fontsize="28px" decoration="none">
+          ← Nova saída
+        </Link>
 
-      <form method="post" onSubmit={handleSubmit}>
-        <div class="value">
-          <Subtitle
-            color="white"
-            fontsize="18px"
-          >
-            Valor da Saida
-          </Subtitle>
-
-          <Input
-            label="R$"
-            type="text"
-            name="input_money"
-            placeholder="0,00"
-            value={formData.input_money}
-            onChange={handleChange}
-            required
-          >
-          </Input>
-        </div>
-        <div>
-        </div>
-
-        <div className="info">
-          <CategorySelect
-            value={formData.input_category}
-            onChange={handleChange}
-          />
-
-          <Input
-            label={<img src={description} alt='Description' />}
-            type="text"
-            name="input_desc"
-            placeholder="Descrição"
-            value={formData.input_desc}
-            onChange={handleChange}
-          >
-          </Input>
-
-          <label>
-            <img src={wallet} alt="Account" />
-            <select
-              id="account"
-              name="input_account"
-              value={formData.input_account}
+        <form method="post" onSubmit={handleSubmit}>
+          <div className="value">
+            <Subtitle>Valor da Saída</Subtitle>
+            <Input
+              label="R$"
+              type="text"
+              name="input_money"
+              placeholder="0,00"
+              value={formData.input_money}
               onChange={handleChange}
               required
-            >
-              <option value="" disabled>
-                Conta
-              </option>
-              <option value="wallet">Carteira</option>
-              <option value="salary">Conta salário</option>
-            </select>
-          </label>
+            />
+          </div>
 
-          <Input
-            label={<img src={calendar} alt='Calendar' />}
-            type="date"
-            name="input_date"
-            placeholder="Data"
-            value={formData.input_date}
-            onChange={handleChange}
-            required="true"
-          >
-          </Input>
+          <div className="info">
+            <CategorySelect value={formData.input_category} onChange={handleChange} />
 
-          <button type="submit">
-            <img src={saida} alt="Confirm" />
-          </button>
-        </div>
-      </form>
+            <Input
+              label={<img src={description} alt="Description" />}
+              type="text"
+              name="input_desc"
+              placeholder="Descrição"
+              value={formData.input_desc}
+              onChange={handleChange}
+            />
+
+            <label>
+              <img src={wallet} alt="Account" />
+              <select
+                id="account"
+                name="input_account"
+                value={formData.input_account}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>
+                  Conta
+                </option>
+                <option value="wallet">Carteira</option>
+                <option value="salary">Conta salário</option>
+              </select>
+            </label>
+
+            <Input
+              label={<img src={calendar} alt="Calendar" />}
+              type="date"
+              name="input_date"
+              placeholder="Data"
+              value={formData.input_date}
+              onChange={handleChange}
+              required
+            />
+
+            <button type="submit">
+              <img src={saida} alt="Confirm" />
+            </button>
+          </div>
+        </form>
+      </main>
     </div>
   );
 }
