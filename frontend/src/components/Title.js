@@ -6,7 +6,7 @@ function Title({children, color, fontsize}){
         className="title"
         style={{
             color: color || "white",
-            fontSize: fontsize || "34px"
+            fontSize: fontsize || "32px"
         }}>
             {children}
         </h1>

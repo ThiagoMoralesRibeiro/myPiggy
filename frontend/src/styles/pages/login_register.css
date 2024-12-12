@@ -71,3 +71,9 @@ form button {
     flex-direction: column;
     margin-top: 45px;
 }
+
+@media (max-width: 720px) {
+    .back {
+        transform: translate(-120px, -400px);
+    }
+}

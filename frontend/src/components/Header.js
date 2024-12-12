@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 
 import Logo from "./Logo";
 import Link from "./Link";
 import Title from "./Title";
-import Navbar from "./Navbar";
+// import Navbar from "./Navbar";
 
 import config from "../imgs/icons/config.png"
 

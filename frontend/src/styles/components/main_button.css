@@ -121,3 +121,24 @@
     text-shadow: 0px 3px 6px black;
     transform: translate(0px, 55px);
 }
+
+@media (max-width: 720px) {
+    .main_button {
+        width: 60px;
+        height: 60px;
+        transform: translate(-50%, -70%);
+    }
+
+    .action_buttons .link {
+        width: 60px;
+        height: 60px;
+    }
+
+    .action_buttons .link:nth-child(2) {
+        transform: translate(95px, -200px);
+    }
+    
+    .action_buttons .link:last-child {
+        transform: translate(-25px, -300px);
+    }
+}

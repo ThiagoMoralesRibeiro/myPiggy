@@ -76,9 +76,9 @@ function Home() {
           <hr />
 
           <section className="section_accounts">
-            <Account type="wallet" name="Carteira" balance="121" />
-            <Account type="bank" name="Conta Salário" balance="123" />
-            <Account type="bank" name="Conta Benefício" balance="123" />
+            <Account type="wallet" name="Carteira" balance="0" />
+            <Account type="bank" name="Conta Salário" balance="0" />
+            <Account type="bank" name="Conta Benefício" balance="0" />
 
             <hr />
 
@@ -96,76 +96,6 @@ function Home() {
       </div>
     </RequireAuth>
   );
-
-  /*  function Home(){
-        return (
-            <div className="home">
-               <main>
-                    <div class="filter"></div>
-                    <Header></Header>
-                    <Navbar></Navbar>
-                    <Balance
-                        balance=""
-                    >
-                    </Balance>
-                    <section class="section_transfer">
-                        <Transference
-                            type="entradas"
-                            title="Entradas"
-                            value=""
-                        >
-                        </Transference>
-                   
-                        <Transference
-                            type="saidas"
-                            title="Saídas"
-                            value=""
-                        >
-                        </Transference>
-                    </section>
-                    <hr/>
-                    <section class="section_accounts">
-                        <Account
-                            type="wallet"
-                            name="Carteira"
-                            balance="121"
-                        >
-                        </Account>
-                        <Account
-                            type="bank"
-                            name="Conta Salário"
-                            balance="123"
-                        >
-                        </Account>
-                        <Account
-                            type="bank"
-                            name="Conta Benefício"
-                            balance="123"
-                        >
-                        </Account>
-                        <hr/>
-                        <div class="total">
-                            <Title
-                                color="black"
-                                fontsize=""
-                            >
-                                TOTAL
-                            </Title>
-                            <Title
-                                color="green"
-                                fontsize=""
-                            >
-                               R$ 123
-                            </Title>
-                        </div>
-                    </section>
-                    { <MainButton></MainButton> }
-                    <Footer></Footer>
-                </main>
-            </div>
-        );
-    }
-    */
 }
 export default Home;
 

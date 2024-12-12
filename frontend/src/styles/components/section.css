@@ -21,3 +21,9 @@
     justify-content: center;
     width: 100%;
 }
+
+@media (max-width: 720px) {
+    .section img {
+        width: 30px
+    }
+}
